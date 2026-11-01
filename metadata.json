@@ -1,0 +1,6 @@
+{
+  "name": "Corner Studio",
+  "description": "Single-page website for a web agency featuring an interactive shopfront street hero, CSS-rendered shops, and local business portfolio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

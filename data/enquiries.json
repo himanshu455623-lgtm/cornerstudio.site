@@ -1,0 +1,29 @@
+[
+  {
+    "id": "enq_1793510741928_hc33m",
+    "name": "Aarav Mehta",
+    "business": "Mehta Organic Greens",
+    "contact": "+91 99887 76655",
+    "message": "We want a fresh 1-page site for our organic vegetable deliveries.",
+    "status": "new",
+    "createdAt": "2026-11-01T05:25:41.928Z"
+  },
+  {
+    "id": "enq_demo_1",
+    "name": "Priya Sharma",
+    "business": "Artisan Bakes & Treats",
+    "contact": "+91 98765 43210",
+    "message": "Need a mobile-friendly menu and online cake pre-ordering setup.",
+    "status": "new",
+    "createdAt": "2026-11-01T01:25:26.690Z"
+  },
+  {
+    "id": "enq_demo_2",
+    "name": "Rajesh Varma",
+    "business": "Varma Modern Salon",
+    "contact": "rajesh@varmasalon.in",
+    "message": "Looking for the Business plan with Google Maps and 1-tap WhatsApp booking.",
+    "status": "contacted",
+    "createdAt": "2026-10-31T01:25:26.691Z"
+  }
+]

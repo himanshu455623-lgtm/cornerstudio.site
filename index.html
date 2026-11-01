@@ -1,0 +1,2840 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Corner Studio — Websites for local businesses</title>
+    <meta name="description" content="We build fast, good-looking websites for local businesses, live in 7 days, with a free homepage preview before you pay." />
+    <meta property="og:title" content="Corner Studio — Websites for local businesses" />
+    <meta property="og:description" content="We build fast, good-looking websites for local businesses, live in 7 days, with a free homepage preview before you pay." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏪</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet" />
+
+    <style>
+      /* ===== COLOUR TOKENS ===== */
+      :root {
+        --paper: #F2EDE2;
+        --card: #FBF8F1;
+        --ink: #151515;
+        --muted: #6B665B;
+        --cobalt: #1F3FB0;
+        --sun: #FFC83D;
+        --on: #ffffff;
+        --rule: rgba(21, 21, 21, 0.85);
+        --ease: cubic-bezier(0.7, 0, 0.2, 1);
+        color-scheme: light;
+      }
+
+      :root[data-theme="dark"] {
+        --paper: #14130f;
+        --card: #1d1b16;
+        --ink: #F2EDE2;
+        --muted: #a39d8f;
+        --cobalt: #3552d6;
+        --rule: rgba(242, 237, 226, 0.8);
+        color-scheme: dark;
+      }
+
+      :root[data-theme="light"] {
+        --paper: #F2EDE2;
+        --card: #FBF8F1;
+        --ink: #151515;
+        --muted: #6B665B;
+        --cobalt: #1F3FB0;
+        --sun: #FFC83D;
+        --rule: rgba(21, 21, 21, 0.85);
+        color-scheme: light;
+      }
+
+      /* ===== BASE & RESETS ===== */
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--paper);
+        color: var(--ink);
+        font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+        font-size: 17px;
+        line-height: 1.5;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+      }
+
+      button, a {
+        background: none;
+        border: none;
+        text-decoration: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      /* ===== GLOBAL UTILITIES ===== */
+      .lbl {
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 28px;
+        width: 100%;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        padding: 0 24px;
+        border-radius: 9999px;
+        background: var(--cobalt);
+        color: #ffffff;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        transition: transform 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+      }
+
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border: 1.5px solid var(--ink);
+      }
+
+      .btn.ghost:hover {
+        background: color-mix(in srgb, var(--ink) 6%, transparent);
+      }
+
+      .serif-accent {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        color: var(--cobalt);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--cobalt);
+        outline-offset: 3px;
+      }
+
+      /* ===== 1. STICKY NAV ===== */
+      .sticky-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in srgb, var(--paper) 85%, transparent);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding-top: env(safe-area-inset-top, 0px);
+        border-bottom: 1px solid color-mix(in srgb, var(--rule) 15%, transparent);
+        transition: background-color 0.3s var(--ease);
+      }
+
+      .nav-row {
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 3px;
+        font-size: 26px;
+        line-height: 1;
+      }
+
+      .logo-corner {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        color: var(--cobalt);
+      }
+
+      .logo-studio {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: normal;
+        color: var(--ink);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .nav-link {
+        color: var(--ink);
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--cobalt);
+      }
+
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink);
+        border: 1px solid color-mix(in srgb, var(--rule) 25%, transparent);
+        transition: background-color 0.2s, transform 0.2s;
+      }
+
+      .theme-btn:hover {
+        background-color: color-mix(in srgb, var(--ink) 8%, transparent);
+        transform: rotate(15deg);
+      }
+
+      .btn-nav {
+        height: 40px;
+        padding: 0 18px;
+        font-size: 11px;
+      }
+
+      /* ===== 2. HERO ===== */
+      .hero {
+        text-align: center;
+        padding: 56px 0 40px;
+      }
+
+      .hero-eyebrow {
+        color: var(--cobalt);
+        margin-bottom: 16px;
+      }
+
+      .hero-h1 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-optical-sizing: auto;
+        font-size: clamp(46px, 9vw, 132px);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        max-width: 1100px;
+        margin: 0 auto 22px;
+        font-weight: 400;
+        text-wrap: balance;
+      }
+
+      .hero-line-mask {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.06em;
+      }
+
+      .hero-line-inner {
+        display: inline-block;
+        transform: translateY(110%);
+        animation: heroSlideUp 1s var(--ease) forwards;
+      }
+
+      .hero-line-inner.line-2 {
+        animation-delay: 0.12s;
+      }
+
+      @keyframes heroSlideUp {
+        from {
+          transform: translateY(110%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      .hero-p {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: clamp(18px, 2vw, 22px);
+        line-height: 1.45;
+        max-width: 620px;
+        margin: 0 auto 26px;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+
+      .hero-proof {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px 26px;
+        color: var(--muted);
+      }
+
+      /* ===== 3. THE STAGE (COBALT SKY & STREET) ===== */
+      .stage-outer {
+        margin: 0 16px;
+      }
+
+      .stage {
+        background: var(--cobalt);
+        border-radius: 26px;
+        padding-top: 26px;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        box-shadow: 0 14px 34px -10px rgba(31, 63, 176, 0.4);
+      }
+
+      .sun {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: var(--sun);
+        border-radius: 50%;
+        right: 9%;
+        top: -30px;
+        pointer-events: none;
+        box-shadow: 0 0 45px rgba(255, 200, 61, 0.55);
+      }
+
+      .cloud {
+        position: absolute;
+        height: 26px;
+        background: rgba(255, 255, 255, 0.22);
+        border-radius: 9999px;
+        pointer-events: none;
+      }
+
+      .cloud-1 {
+        left: 6%;
+        top: 70px;
+        width: 110px;
+      }
+
+      .cloud-2 {
+        left: 34%;
+        top: 34px;
+        width: 70px;
+      }
+
+      .cloud-3 {
+        right: 30%;
+        top: 90px;
+        width: 90px;
+      }
+
+      /* Segmented switch */
+      .switch-wrap {
+        position: relative;
+        z-index: 10;
+        display: inline-flex;
+        align-items: center;
+        background: #ffffff;
+        padding: 4px;
+        border-radius: 9999px;
+        margin-bottom: 22px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      .switch-indicator {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        height: calc(100% - 8px);
+        background: #151515;
+        border-radius: 9999px;
+        z-index: 1;
+        pointer-events: none;
+        transform: translateX(4px);
+        width: 140px;
+        transition: transform 0.6s var(--ease), width 0.6s var(--ease);
+      }
+
+      .switch-indicator.no-transition {
+        transition: none !important;
+      }
+
+      .switch-btn {
+        position: relative;
+        z-index: 2;
+        padding: 11px 20px;
+        border-radius: 9999px;
+        color: #151515;
+        white-space: nowrap;
+        transition: color 0.4s ease;
+      }
+
+      .switch-btn.active {
+        color: #ffffff;
+      }
+
+      /* Street */
+      .street {
+        display: flex;
+        gap: clamp(10px, 2vw, 26px);
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 6px 28px 0;
+        scroll-snap-type: x proximity;
+        justify-content: safe center;
+        position: relative;
+        z-index: 5;
+      }
+
+      .street::-webkit-scrollbar {
+        display: none;
+      }
+
+      .street-hint {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 14px 0 10px;
+      }
+
+      /* Pavement curb */
+      .pavement {
+        height: 24px;
+        background: repeating-linear-gradient(90deg, #151515 0 58px, rgba(255, 255, 255, 0.18) 58px 60px);
+        width: 100%;
+        position: relative;
+        z-index: 6;
+      }
+
+      /* ===== 4. SHOP ANATOMY ===== */
+      .shop {
+        flex: 0 0 clamp(200px, 21vw, 252px);
+        aspect-ratio: 3 / 4.3;
+        container-type: inline-size;
+        font-size: 4.6cqw;
+        position: relative;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        scroll-snap-align: center;
+        display: block;
+        text-align: left;
+        user-select: none;
+      }
+
+      /* Sign */
+      .shop-sign {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 12%;
+        background: var(--sg);
+        color: #ffffff;
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 6.4cqw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        border-radius: 6px 6px 0 0;
+        z-index: 4;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        padding: 0 3cqw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Awning */
+      .shop-awning {
+        position: absolute;
+        top: 12%;
+        left: -2%;
+        right: -2%;
+        width: 104%;
+        height: 11%;
+        background: repeating-linear-gradient(90deg, var(--aw) 0 7cqw, #ffffff 7cqw 14cqw);
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 14px -8px rgba(0, 0, 0, 0.5);
+        z-index: 5;
+      }
+
+      /* Window */
+      .shop-window {
+        position: absolute;
+        top: 26%;
+        left: 7%;
+        right: 7%;
+        height: 50%;
+        border: 6px solid var(--sg);
+        background: var(--c);
+        overflow: hidden;
+        color: #161616;
+        z-index: 3;
+        border-radius: 2px;
+      }
+
+      /* Mini website inside window */
+      .site {
+        width: 100%;
+        height: 100%;
+        padding: 4.5cqw 5cqw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2cqw;
+        box-sizing: border-box;
+      }
+
+      .site-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        padding-bottom: 2cqw;
+      }
+
+      .site-dots {
+        display: flex;
+        gap: 1.4cqw;
+      }
+
+      .site-dot {
+        width: 2.2cqw;
+        height: 2.2cqw;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.25);
+      }
+
+      .site-url {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 3.1cqw;
+        opacity: 0.6;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 65%;
+      }
+
+      .site-headline {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 7.8cqw;
+        line-height: 1.02;
+        margin: 0;
+        color: #161616;
+        font-weight: 400;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .site-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        padding: 1.6cqw 3.6cqw;
+        border-radius: 9999px;
+        background: var(--b);
+        color: #ffffff;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 3.4cqw;
+        line-height: 1;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        white-space: nowrap;
+      }
+
+      .site-chip {
+        display: inline-flex;
+        align-items: center;
+        align-self: flex-start;
+        padding: 1cqw 2.4cqw;
+        background: var(--sun);
+        color: #151515;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 3.1cqw;
+        line-height: 1;
+        border-radius: 2cqw;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+      }
+
+      /* Shutter */
+      .shut {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background: repeating-linear-gradient(180deg, #a3a8ad 0 6px, #80868c 6px 8px);
+        transition: transform 1.1s var(--ease);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .shut::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: #3a3d40;
+        border-top: 1px solid #202224;
+      }
+
+      .shut-stamp {
+        color: #E4472B;
+        border: 2px solid #E4472B;
+        background: rgba(255, 255, 255, 0.35);
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 3.6cqw;
+        letter-spacing: 0.12em;
+        padding: 1.5cqw 3cqw;
+        transform: rotate(-7deg);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+      }
+
+      /* Hover peek on closed shops */
+      .shop:not(.open):hover .shut {
+        transform: translateY(-9%);
+      }
+
+      /* Open state */
+      .shop.open .shut {
+        transform: translateY(-102%);
+      }
+
+      /* Door */
+      .shop-door {
+        position: absolute;
+        left: 34%;
+        width: 32%;
+        bottom: 0;
+        height: 21%;
+        background: var(--sg);
+        border-radius: 4px 4px 0 0;
+        z-index: 3;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .shop-doorknob {
+        position: absolute;
+        right: 12%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.4cqw;
+        height: 2.4cqw;
+        border-radius: 50%;
+        background: var(--sun);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Open / closed tag */
+      .shop-tag {
+        position: absolute;
+        bottom: 6%;
+        right: 7%;
+        padding: 1.6cqw 2.4cqw;
+        border: 1.5px solid #E4472B;
+        color: #E4472B;
+        background: #1b0d0a;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 600;
+        font-size: 3.2cqw;
+        letter-spacing: 0.1em;
+        line-height: 1;
+        border-radius: 2px;
+        z-index: 4;
+        transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+      }
+
+      .shop-tag::before {
+        content: 'CLOSED';
+      }
+
+      .shop.open .shop-tag {
+        border-color: #7CFFB0;
+        color: #7CFFB0;
+        background: #0c1a12;
+        box-shadow: 0 0 14px rgba(124, 255, 176, 0.67);
+      }
+
+      .shop.open .shop-tag::before {
+        content: 'OPEN';
+      }
+
+      /* ===== 6. MARQUEE STRIP ===== */
+      .marquee-strip {
+        width: 100%;
+        margin-top: 56px;
+        background: var(--sun);
+        color: #151515;
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .marquee-inner {
+        display: inline-block;
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 28px;
+        line-height: 1;
+        padding: 14px 0;
+        animation: marqueeScroll 40s linear infinite;
+        will-change: transform;
+      }
+
+      .marquee-item {
+        margin: 0 22px;
+      }
+
+      .marquee-star {
+        margin-left: 44px;
+        color: var(--cobalt);
+        font-style: normal;
+      }
+
+      @keyframes marqueeScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ===== 7. SECTIONS (WHY, PRICING, PROCESS) ===== */
+      .section {
+        padding-top: 96px;
+      }
+
+      .section-eyebrow {
+        color: var(--cobalt);
+        margin-bottom: 16px;
+      }
+
+      .section-h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: clamp(38px, 6vw, 76px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        max-width: 900px;
+        margin: 0 0 40px;
+        font-weight: 400;
+        text-wrap: balance;
+      }
+
+      /* Why grid */
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .why-card {
+        background: var(--card);
+        border: 1.5px solid var(--ink);
+        border-radius: 20px;
+        padding: 26px 22px 28px;
+        display: flex;
+        flex-direction: column;
+        min-height: 260px;
+        gap: 10px;
+        transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      }
+
+      .why-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .why-glyph {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 64px;
+        line-height: 1;
+        color: var(--cobalt);
+      }
+
+      .why-title {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 27px;
+        line-height: 1.15;
+        margin-top: auto;
+        color: var(--ink);
+        font-weight: 400;
+      }
+
+      .why-desc {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.45;
+        margin: 0;
+      }
+
+      /* Pricing grid */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .plan-card {
+        background: var(--card);
+        border: 1.5px solid var(--ink);
+        border-radius: 22px;
+        padding: 30px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        transition: transform 0.25s var(--ease);
+      }
+
+      .plan-card.highlight {
+        background: var(--cobalt);
+        color: #ffffff;
+        border-color: var(--cobalt);
+        transform: translateY(-14px);
+        box-shadow: 0 16px 36px -12px rgba(31, 63, 176, 0.45);
+      }
+
+      .plan-subtitle {
+        color: inherit;
+        opacity: 0.85;
+      }
+
+      .plan-name {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 36px;
+        line-height: 1.1;
+        margin: 0;
+        font-weight: 400;
+      }
+
+      .plan-price {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 64px;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        margin: 4px 0 12px;
+      }
+
+      .plan-list {
+        margin: 0 0 24px;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .plan-item {
+        border-top: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+        padding: 11px 0;
+        font-size: 15.5px;
+      }
+
+      .plan-btn {
+        margin-top: auto;
+        align-self: center;
+        width: 100%;
+      }
+
+      .plan-card.highlight .plan-btn {
+        background: #ffffff;
+        color: #151515;
+      }
+
+      .plan-card.highlight .plan-btn:hover {
+        background: #f0f0f0;
+      }
+
+      /* Process grid */
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1.5px solid var(--ink);
+      }
+
+      .process-step {
+        padding: 22px 22px 0 0;
+      }
+
+      .step-num {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 52px;
+        line-height: 1;
+        color: var(--cobalt);
+        margin-bottom: 8px;
+      }
+
+      .step-title {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 27px;
+        line-height: 1.2;
+        margin: 0 0 10px;
+        color: var(--ink);
+        font-weight: 400;
+      }
+
+      .step-desc {
+        color: var(--muted);
+        font-size: 15.5px;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      /* ===== 8. CONTACT ===== */
+      .contact-outer {
+        margin-top: 96px;
+        padding: 0 16px;
+      }
+
+      .contact-box {
+        background: var(--cobalt);
+        border-radius: 30px;
+        padding: clamp(28px, 5vw, 64px);
+        color: #ffffff;
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        box-shadow: 0 14px 34px -10px rgba(31, 63, 176, 0.4);
+      }
+
+      .contact-left {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .contact-eyebrow {
+        opacity: 0.8;
+      }
+
+      .contact-h2 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: clamp(32px, 5vw, 60px);
+        line-height: 1.05;
+        margin: 0;
+        font-weight: 400;
+        text-wrap: balance;
+      }
+
+      .contact-h2 em {
+        color: var(--sun);
+        font-style: italic;
+      }
+
+      .contact-p {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 20px;
+        line-height: 1.45;
+        max-width: 420px;
+        margin: 0;
+        opacity: 0.95;
+      }
+
+      .btn-wa {
+        align-self: flex-start;
+        background: #ffffff;
+        color: #151515;
+      }
+
+      .btn-wa:hover {
+        background: #f3f3f3;
+      }
+
+      /* Form card */
+      .contact-form-card {
+        background: var(--card);
+        color: var(--ink);
+        border-radius: 22px;
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .form-field .lbl {
+        color: var(--muted);
+      }
+
+      .form-input, .form-textarea {
+        border: none;
+        border-bottom: 1.5px solid var(--ink);
+        background: transparent;
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 19px;
+        color: var(--ink);
+        border-radius: 0;
+        outline: none;
+        padding: 6px 0;
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 60px;
+        font-family: 'Newsreader', Georgia, serif;
+      }
+
+      .form-input:focus, .form-textarea:focus {
+        border-bottom-color: var(--cobalt);
+      }
+
+      .form-submit {
+        margin-top: 8px;
+        align-self: center;
+        width: 100%;
+      }
+
+      /* ===== 9. FOOTER ===== */
+      .site-footer {
+        padding: 48px 0 calc(48px + env(safe-area-inset-bottom, 0px));
+        color: var(--muted);
+      }
+
+      .footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      /* ===== 10. SCROLL REVEALS ===== */
+      html.js .rv {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+      }
+
+      html.js .rv.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 860px) {
+        .nav-links {
+          display: none;
+        }
+
+        .why-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .plan-card.highlight {
+          transform: none;
+        }
+
+        .process-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .process-step {
+          padding-right: 0;
+        }
+
+        .contact-box {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .sun {
+          width: 100px;
+          height: 100px;
+          top: -20px;
+        }
+
+        .street {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .wrap {
+          padding: 0 18px;
+        }
+
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-outer {
+          padding: 0 12px;
+        }
+
+        .switch-btn {
+          padding: 10px 14px;
+          font-size: 10px;
+        }
+      }
+
+      /* ===== REDUCED MOTION ===== */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .rv {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+
+        .marquee-inner {
+          animation: none !important;
+        }
+      }
+
+      /* ===== ADMIN INBOX & LEAD DESK DRAWER ===== */
+      .nav-inbox-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 9999px;
+        border: 1px solid color-mix(in srgb, var(--rule) 25%, transparent);
+        color: var(--ink);
+        transition: background-color 0.2s, border-color 0.2s;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .nav-inbox-btn:hover {
+        background-color: color-mix(in srgb, var(--ink) 8%, transparent);
+        border-color: var(--ink);
+      }
+
+      .nav-lead-badge {
+        display: none;
+        margin-left: 6px;
+        background: var(--cobalt);
+        color: #ffffff;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 9999px;
+        font-weight: 600;
+      }
+
+      .nav-lead-badge.has-new {
+        display: inline-block;
+      }
+
+      .footer-inbox-btn {
+        color: var(--muted);
+        cursor: pointer;
+        transition: color 0.2s;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .footer-inbox-btn:hover {
+        color: var(--cobalt);
+      }
+
+      /* Success Card in Contact Form */
+      .contact-success-card {
+        background: var(--card);
+        color: var(--ink);
+        border-radius: 22px;
+        padding: 32px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        animation: fadeInCard 0.4s var(--ease) forwards;
+      }
+
+      @keyframes fadeInCard {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0c1a12;
+        border: 1.5px solid #7CFFB0;
+        color: #7CFFB0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: 0 0 16px rgba(124, 255, 176, 0.4);
+      }
+
+      .success-title {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 28px;
+        line-height: 1.1;
+        margin: 0;
+        color: var(--ink);
+        font-weight: 400;
+      }
+
+      .success-desc {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .success-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .btn-wa-copy {
+        background: #25D366;
+        color: #ffffff;
+      }
+
+      .btn-wa-copy:hover {
+        background: #20BA5A;
+      }
+
+      .btn-another {
+        width: 100%;
+      }
+
+      /* Slide-Over Drawer */
+      .drawer-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: flex-end;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .drawer-overlay.open {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .drawer-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      .drawer-panel {
+        position: relative;
+        width: 100%;
+        max-width: 540px;
+        height: 100%;
+        background: var(--paper);
+        color: var(--ink);
+        border-left: 1.5px solid var(--ink);
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.35s var(--ease);
+        z-index: 2;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .drawer-overlay.open .drawer-panel {
+        transform: translateX(0);
+      }
+
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 24px;
+        border-bottom: 1.5px solid var(--rule);
+        background: color-mix(in srgb, var(--paper) 95%, transparent);
+      }
+
+      .drawer-title-wrap {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+
+      .drawer-title {
+        font-family: 'Newsreader', Georgia, serif;
+        font-style: italic;
+        font-size: 28px;
+        line-height: 1;
+        margin: 0;
+        color: var(--cobalt);
+        font-weight: 400;
+      }
+
+      .drawer-subtitle {
+        color: var(--muted);
+      }
+
+      .drawer-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border: 1px solid color-mix(in srgb, var(--rule) 25%, transparent);
+        color: var(--ink);
+        transition: background-color 0.2s, transform 0.2s;
+        cursor: pointer;
+      }
+
+      .drawer-close:hover {
+        background-color: color-mix(in srgb, var(--ink) 10%, transparent);
+        transform: scale(1.05);
+      }
+
+      /* Lock screen inside drawer */
+      .drawer-lock-view {
+        padding: 40px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .lock-card {
+        background: var(--card);
+        border: 1.5px solid var(--ink);
+        border-radius: 20px;
+        padding: 32px 24px;
+        width: 100%;
+        max-width: 380px;
+        text-align: center;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .lock-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+
+      .lock-heading {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 26px;
+        line-height: 1.1;
+        margin: 0 0 8px;
+        color: var(--ink);
+      }
+
+      .lock-sub {
+        font-size: 14.5px;
+        color: var(--muted);
+        margin: 0 0 20px;
+        line-height: 1.4;
+      }
+
+      .lock-form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-align: left;
+      }
+
+      .lock-hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 0;
+        text-align: center;
+      }
+
+      .lock-hint code {
+        background: color-mix(in srgb, var(--ink) 8%, transparent);
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+
+      .lock-error {
+        color: #E4472B;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      /* Dashboard inside drawer */
+      .drawer-dash-view {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .dash-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 16px 24px;
+        border-bottom: 1px solid color-mix(in srgb, var(--rule) 20%, transparent);
+        background: color-mix(in srgb, var(--card) 60%, transparent);
+      }
+
+      .stat-pill {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        border-radius: 12px;
+        background: var(--card);
+        border: 1px solid color-mix(in srgb, var(--rule) 15%, transparent);
+      }
+
+      .stat-num {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1;
+        color: var(--ink);
+      }
+
+      .stat-num.stat-new {
+        color: var(--cobalt);
+      }
+
+      .stat-num.stat-contacted {
+        color: #2F5D50;
+      }
+
+      .stat-lbl {
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .dash-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 24px;
+        border-bottom: 1px solid color-mix(in srgb, var(--rule) 15%, transparent);
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .dash-filters {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+      }
+
+      .dash-filter-btn {
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 10px;
+        color: var(--muted);
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .dash-filter-btn.active {
+        background: var(--ink);
+        color: #ffffff;
+      }
+
+      .dash-meta-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-dash-action {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid color-mix(in srgb, var(--rule) 25%, transparent);
+        color: var(--muted);
+        cursor: pointer;
+        transition: color 0.2s, border-color 0.2s;
+      }
+
+      .btn-dash-action:hover {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .leads-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .lead-card {
+        background: var(--card);
+        border: 1.5px solid var(--ink);
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 2px 2px 0 var(--ink);
+        transition: transform 0.2s;
+      }
+
+      .lead-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .lead-biz {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 20px;
+        line-height: 1.15;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      .lead-name {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .lead-badge {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .lead-badge.status-new {
+        background: color-mix(in srgb, var(--cobalt) 15%, transparent);
+        color: var(--cobalt);
+        border: 1px solid var(--cobalt);
+      }
+
+      .lead-badge.status-contacted {
+        background: rgba(47, 93, 80, 0.15);
+        color: #2F5D50;
+        border: 1px solid #2F5D50;
+      }
+
+      .lead-badge.status-archived {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+        color: var(--muted);
+        border: 1px solid var(--muted);
+      }
+
+      .lead-msg {
+        background: color-mix(in srgb, var(--paper) 70%, transparent);
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--ink);
+        border-left: 2px solid var(--cobalt);
+      }
+
+      .lead-contacts {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-size: 13.5px;
+      }
+
+      .lead-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--cobalt);
+        font-weight: 500;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .lead-link:hover {
+        opacity: 0.8;
+      }
+
+      .lead-actions-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 8px;
+        border-top: 1px solid color-mix(in srgb, var(--rule) 15%, transparent);
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .lead-date {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .lead-status-btns {
+        display: flex;
+        gap: 6px;
+      }
+
+      .lead-btn-mini {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid color-mix(in srgb, var(--rule) 25%, transparent);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .lead-btn-mini:hover {
+        background: var(--ink);
+        color: #ffffff;
+      }
+
+      .lead-btn-delete {
+        color: #E4472B;
+        border-color: rgba(228, 71, 43, 0.3);
+      }
+
+      .lead-btn-delete:hover {
+        background: #E4472B;
+        color: #ffffff;
+      }
+
+      .empty-leads {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- STICKY NAV -->
+    <header class="sticky-nav">
+      <div class="wrap nav-row">
+        <a href="#top" class="logo" aria-label="Corner Studio home">
+          <span class="logo-corner">Corner</span>
+          <span class="logo-studio">Studio</span>
+        </a>
+
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main Navigation">
+            <a href="#why" class="lbl nav-link">Why</a>
+            <a href="#pricing" class="lbl nav-link">Pricing</a>
+            <a href="#process" class="lbl nav-link">Process</a>
+          </nav>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+            <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <a href="#contact" class="btn btn-nav">Book a call</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero wrap">
+        <div class="lbl hero-eyebrow rv">Web design for local businesses</div>
+        <h1 class="hero-h1">
+          <span class="hero-line-mask">
+            <span class="hero-line-inner">Your shop is open.</span>
+          </span>
+          <span class="hero-line-mask">
+            <span class="hero-line-inner line-2">Your <em class="serif-accent">website</em> should be too.</span>
+          </span>
+        </h1>
+        <p class="hero-p rv">
+          We build fast, good-looking websites for local businesses, live in <span id="hero-days">7</span> days, with a free homepage preview before you pay.
+        </p>
+        <div class="hero-actions rv">
+          <a href="#contact" class="btn">Book a free call →</a>
+          <a href="#pricing" class="btn ghost">See pricing</a>
+        </div>
+        <div class="hero-proof rv">
+          <span>✓ You own the site</span>
+          <span>✓ Mobile-first</span>
+          <span>✓ Google-ready</span>
+        </div>
+      </section>
+
+      <!-- THE STAGE (STREET HERO) -->
+      <div class="stage-outer">
+        <section class="stage" aria-label="Interactive high street demonstration">
+          <div class="sun" aria-hidden="true"></div>
+          <div class="cloud cloud-1" aria-hidden="true"></div>
+          <div class="cloud cloud-2" aria-hidden="true"></div>
+          <div class="cloud cloud-3" aria-hidden="true"></div>
+
+          <!-- Switch -->
+          <div class="switch-wrap" role="group" aria-label="Shop shutter view modes">
+            <div id="switch-indicator" class="switch-indicator no-transition"></div>
+            <button id="sw-without" class="switch-btn lbl active" type="button" aria-pressed="true">Without a website</button>
+            <button id="sw-with" class="switch-btn lbl" type="button" aria-pressed="false">With Corner Studio</button>
+          </div>
+
+          <!-- The Street of shops -->
+          <div id="street" class="street" tabindex="0" aria-label="Interactive street shops">
+            <!-- Populated via JavaScript from S array -->
+          </div>
+
+          <div class="lbl street-hint">Tap a shop to roll its shutter</div>
+          <div class="pavement" aria-hidden="true"></div>
+        </section>
+      </div>
+
+      <!-- MARQUEE STRIP -->
+      <div class="marquee-strip" aria-hidden="true">
+        <div id="marquee-inner" class="marquee-inner">
+          <!-- Populated via JavaScript -->
+        </div>
+      </div>
+
+      <!-- WHY A WEBSITE -->
+      <section id="why" class="section wrap">
+        <div class="lbl section-eyebrow rv">Why a website</div>
+        <h2 class="section-h2 rv">People look you up before they <em class="serif-accent">walk in</em>.</h2>
+
+        <div class="why-grid">
+          <div class="why-card rv">
+            <div class="why-glyph">7</div>
+            <h3 class="why-title">Days to launch</h3>
+            <p class="why-desc">A homepage preview in 3 days, the full site live in a week.</p>
+          </div>
+          <div class="why-card rv">
+            <div class="why-glyph">↗</div>
+            <h3 class="why-title">Found on Google</h3>
+            <p class="why-desc">Maps, opening hours, reviews and local search set up properly.</p>
+          </div>
+          <div class="why-card rv">
+            <div class="why-glyph">1</div>
+            <h3 class="why-title">Tap to contact</h3>
+            <p class="why-desc">Call, WhatsApp or book. One tap from the phone in their hand.</p>
+          </div>
+          <div class="why-card rv">
+            <div class="why-glyph">0</div>
+            <h3 class="why-title">Jargon</h3>
+            <p class="why-desc">Plain words, fixed prices, and a site you own outright.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing" class="section wrap">
+        <div class="lbl section-eyebrow rv">Pricing</div>
+        <h2 class="section-h2 rv">Simple prices. <em class="serif-accent">No surprises.</em></h2>
+
+        <div id="pricing-grid" class="pricing-grid">
+          <!-- Populated via JavaScript from plans array -->
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section id="process" class="section wrap">
+        <div class="lbl section-eyebrow rv">Process</div>
+        <h2 class="section-h2 rv">From first call to <em class="serif-accent">open for business</em>.</h2>
+
+        <div class="process-grid">
+          <div class="process-step rv">
+            <div class="step-num">01</div>
+            <h3 class="step-title">Free call</h3>
+            <p class="step-desc">Fifteen minutes about your business, your customers and what you want visitors to do.</p>
+          </div>
+          <div class="process-step rv">
+            <div class="step-num">02</div>
+            <h3 class="step-title">Preview</h3>
+            <p class="step-desc">You see your homepage in 3 days, before the full build starts.</p>
+          </div>
+          <div class="process-step rv">
+            <div class="step-num">03</div>
+            <h3 class="step-title">Build</h3>
+            <p class="step-desc">Pages, photos, maps and buttons, tested on real phones.</p>
+          </div>
+          <div class="process-step rv">
+            <div class="step-num">04</div>
+            <h3 class="step-title">Launch &amp; care</h3>
+            <p class="step-desc">We go live on your domain, set up Google and look after it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <div class="contact-outer">
+        <section id="contact" class="contact-box wrap rv">
+          <div class="contact-left">
+            <div class="lbl contact-eyebrow">Contact</div>
+            <h2 class="contact-h2">Ready to open your shop <em>online</em>?</h2>
+            <p class="contact-p">Tell us about your business. We reply within a day with ideas, not a sales pitch.</p>
+            <a id="btn-wa" href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" class="btn btn-wa">WhatsApp us</a>
+          </div>
+
+          <div class="contact-right">
+            <form id="contact-form" class="contact-form-card" novalidate>
+              <div class="form-field">
+                <label for="f-name" class="lbl">Your name</label>
+                <input type="text" id="f-name" name="name" class="form-input" required autocomplete="name" />
+              </div>
+
+              <div class="form-field">
+                <label for="f-business" class="lbl">Business name</label>
+                <input type="text" id="f-business" name="business" class="form-input" required autocomplete="organization" />
+              </div>
+
+              <div class="form-field">
+                <label for="f-contact" class="lbl">Phone or email</label>
+                <input type="text" id="f-contact" name="contact" class="form-input" required autocomplete="email" />
+              </div>
+
+              <div class="form-field">
+                <label for="f-message" class="lbl">What do you need?</label>
+                <textarea id="f-message" name="message" rows="2" class="form-textarea"></textarea>
+              </div>
+
+              <button type="submit" id="btn-submit-enquiry" class="btn form-submit">Send enquiry →</button>
+            </form>
+
+            <div id="contact-success-card" class="contact-success-card" style="display: none;">
+              <div class="success-icon">✓</div>
+              <h3 class="success-title">Enquiry received</h3>
+              <p id="success-desc" class="success-desc">Thank you! Your enquiry has been received and saved to our studio Lead Desk. We’ll reply within a day with ideas, not a sales pitch.</p>
+              <div class="success-actions">
+                <a id="success-wa-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa-copy">Open in WhatsApp →</a>
+                <button type="button" id="btn-send-another" class="btn ghost btn-another">Send another enquiry</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer wrap">
+      <div class="footer-row">
+        <a href="#top" class="logo" aria-label="Back to top">
+          <span class="logo-corner">Corner</span>
+          <span class="logo-studio">Studio</span>
+        </a>
+        <div class="lbl">Websites for local businesses · © 2026</div>
+      </div>
+    </footer>
+
+    <!-- ADMIN LEAD DESK DRAWER -->
+    <div id="admin-drawer-overlay" class="drawer-overlay" aria-hidden="true">
+      <div class="drawer-backdrop" id="drawer-backdrop"></div>
+      <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+        <div class="drawer-header">
+          <div class="drawer-title-wrap">
+            <h2 id="drawer-title" class="drawer-title">Lead Desk</h2>
+            <span class="lbl drawer-subtitle">Corner Studio</span>
+          </div>
+          <button id="drawer-close-btn" class="drawer-close" aria-label="Close Lead Desk">✕</button>
+        </div>
+
+        <!-- LOCK SCREEN (if not authorized) -->
+        <div id="drawer-lock-view" class="drawer-lock-view">
+          <div class="lock-card">
+            <div class="lock-icon">🔒</div>
+            <h3 class="lock-heading">Owner Access</h3>
+            <p class="lock-sub">Enter your studio passcode to view and manage incoming client enquiries.</p>
+            <form id="lock-form" class="lock-form">
+              <div class="form-field">
+                <label for="admin-pass-input" class="lbl">Passcode</label>
+                <input type="password" id="admin-pass-input" class="form-input" placeholder="Enter passcode" required />
+              </div>
+              <div id="lock-error" class="lock-error" style="display: none;">Incorrect passcode. Please try again.</div>
+              <button type="submit" class="btn" style="width: 100%;">Unlock Desk →</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- DASHBOARD VIEW (when authorized) -->
+        <div id="drawer-dash-view" class="drawer-dash-view" style="display: none;">
+          <div class="dash-stats">
+            <div class="stat-pill"><span class="stat-num" id="stat-total">0</span> <span class="stat-lbl">Total</span></div>
+            <div class="stat-pill"><span class="stat-num stat-new" id="stat-new">0</span> <span class="stat-lbl">New</span></div>
+            <div class="stat-pill"><span class="stat-num stat-contacted" id="stat-contacted">0</span> <span class="stat-lbl">Contacted</span></div>
+          </div>
+
+          <div class="dash-controls">
+            <div class="dash-filters" role="tablist">
+              <button class="dash-filter-btn lbl active" data-filter="all">All</button>
+              <button class="dash-filter-btn lbl" data-filter="new">New</button>
+              <button class="dash-filter-btn lbl" data-filter="contacted">Contacted</button>
+              <button class="dash-filter-btn lbl" data-filter="archived">Archived</button>
+            </div>
+            <div class="dash-meta-actions">
+              <button id="btn-refresh-leads" class="btn-dash-action" title="Refresh leads">↻</button>
+              <button id="btn-lock-dash" class="btn-dash-action" title="Lock Desk">Sign out</button>
+            </div>
+          </div>
+
+          <div id="leads-list" class="leads-list">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC (VANILLA JS, SELF-CONTAINED) -->
+    <script>
+      /* ===== EDIT ME ===== */
+      /* Agency configuration: update these details with your studio contact and project turnaround */
+      const A = {
+        name: 'Corner Studio',
+        email: 'hello@yourstudio.com',
+        wa: '0000000000',
+        cur: '₹',
+        days: 7
+      };
+
+      /* Sample client showcase: replace these placeholder names, palettes, and results with your real client work */
+      const S = [
+        {
+          t: 'Rosewood Bakery',
+          aw: '#C8553D',
+          sg: '#2B2D42',
+          c: '#FFF4E0',
+          b: '#C8553D',
+          hd: 'Fresh bread, every morning.',
+          cta: 'Order now',
+          st: '+42% online orders'
+        },
+        {
+          t: 'Sharp & Co.',
+          aw: '#15161A',
+          sg: '#7a5c1e',
+          c: '#E8E2D4',
+          b: '#15161A',
+          hd: 'A proper cut, booked in 30 seconds.',
+          cta: 'Book a chair',
+          st: '+58% bookings'
+        },
+        {
+          t: 'Bloom Florist',
+          aw: '#E8A5B5',
+          sg: '#2F5D50',
+          c: '#FFF1F4',
+          b: '#2F5D50',
+          hd: 'Flowers, delivered today.',
+          cta: 'Shop bouquets',
+          st: '3× more orders'
+        },
+        {
+          t: 'Quick Fix',
+          aw: '#F2B705',
+          sg: '#1B2A41',
+          c: '#FFF8DC',
+          b: '#1B2A41',
+          hd: 'Burst pipe? We’re on our way.',
+          cta: 'Call now',
+          st: '+64% calls'
+        },
+        {
+          t: 'Chai Corner',
+          aw: '#2F5D50',
+          sg: '#5B2A4A',
+          c: '#F6EFE0',
+          b: '#5B2A4A',
+          hd: 'Your cosy corner for chai.',
+          cta: 'See menu',
+          st: '+120 visits/wk'
+        }
+      ];
+
+      const plans = [
+        {
+          name: 'Starter',
+          subtitle: 'One-page website',
+          price: '19,999',
+          highlight: false,
+          features: [
+            'Mobile-first design',
+            'Call & WhatsApp buttons',
+            'Maps & opening hours',
+            'Live in 3 days'
+          ]
+        },
+        {
+          name: 'Business',
+          subtitle: 'Up to five pages',
+          price: '59,999',
+          highlight: true,
+          features: [
+            'Everything in Starter',
+            'Services, gallery & about',
+            'Local SEO set-up',
+            `Live in ${A.days} days`
+          ]
+        },
+        {
+          name: 'Growth',
+          subtitle: 'Site + online bookings',
+          price: '99,999',
+          highlight: false,
+          features: [
+            'Everything in Business',
+            'Online booking or ordering',
+            'Google Business tune-up',
+            'Live in 10 days'
+          ]
+        }
+      ];
+
+      const marqueeWords = [
+        'Bakeries',
+        'Barbers',
+        'Dentists',
+        'Plumbers',
+        'Salons',
+        'Gyms',
+        'Cafés',
+        'Florists',
+        'Garages',
+        'Tutors',
+        'Restaurants',
+        'Electricians'
+      ];
+
+      /* Mark JS available for CSS progressive enhancement */
+      document.documentElement.classList.add('js');
+
+      /* 1. RENDER SHOPS ON THE STREET */
+      const streetEl = document.getElementById('street');
+      S.forEach((shop, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'shop';
+        btn.type = 'button';
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.setAttribute('aria-label', `${shop.t}: toggle shutter`);
+        btn.style.setProperty('--aw', shop.aw);
+        btn.style.setProperty('--sg', shop.sg);
+        btn.style.setProperty('--c', shop.c);
+        btn.style.setProperty('--b', shop.b);
+
+        const cleanDomain = shop.t.toLowerCase().replace(/[^a-z]/g, '') + '.com';
+
+        btn.innerHTML = `
+          <div class="shop-sign">${shop.t}</div>
+          <div class="shop-awning" aria-hidden="true"></div>
+          <div class="shop-window">
+            <div class="site">
+              <div class="site-bar" aria-hidden="true">
+                <div class="site-dots">
+                  <span class="site-dot"></span>
+                  <span class="site-dot"></span>
+                  <span class="site-dot"></span>
+                </div>
+                <div class="site-url">${cleanDomain}</div>
+              </div>
+              <h4 class="site-headline">${shop.hd}</h4>
+              <div class="site-btn">${shop.cta}</div>
+              <div class="site-chip">${shop.st}</div>
+            </div>
+            <div class="shut">
+              <span class="shut-stamp">NO WEBSITE</span>
+            </div>
+          </div>
+          <div class="shop-door" aria-hidden="true">
+            <div class="shop-doorknob"></div>
+          </div>
+          <div class="shop-tag" aria-hidden="true"></div>
+        `;
+
+        btn.addEventListener('click', () => {
+          toggleSingleShop(btn);
+        });
+
+        streetEl.appendChild(btn);
+      });
+
+      /* 2. RENDER HERO DETAILS & WHATSAPP LINK */
+      const heroDaysEl = document.getElementById('hero-days');
+      if (heroDaysEl) heroDaysEl.textContent = A.days;
+
+      const waBtn = document.getElementById('btn-wa');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/${A.wa}`;
+      }
+
+      /* 3. RENDER MARQUEE STRIP (Repeated twice for seamless loop) */
+      const marqueeInner = document.getElementById('marquee-inner');
+      if (marqueeInner) {
+        const createMarqueeFragment = () => {
+          return marqueeWords
+            .map(word => `<span class="marquee-item">${word}<span class="marquee-star">✦</span></span>`)
+            .join('');
+        };
+        marqueeInner.innerHTML = createMarqueeFragment() + createMarqueeFragment();
+      }
+
+      /* 4. RENDER PRICING CARDS */
+      const pricingGrid = document.getElementById('pricing-grid');
+      if (pricingGrid) {
+        pricingGrid.innerHTML = plans
+          .map(
+            plan => `
+          <div class="plan-card ${plan.highlight ? 'highlight' : ''} rv">
+            <div class="lbl plan-subtitle">${plan.subtitle}</div>
+            <h3 class="plan-name">${plan.name}</h3>
+            <div class="plan-price">${A.cur}${plan.price}</div>
+            <ul class="plan-list">
+              ${plan.features.map(f => `<li class="plan-item">${f}</li>`).join('')}
+            </ul>
+            <a href="#contact" class="btn plan-btn">Choose ${plan.name}</a>
+          </div>
+        `
+          )
+          .join('');
+      }
+
+      /* 5. SWITCH & SHUTTER CONTROLLER */
+      const swWithout = document.getElementById('sw-without');
+      const swWith = document.getElementById('sw-with');
+      const switchIndicator = document.getElementById('switch-indicator');
+      const allShops = () => Array.from(document.querySelectorAll('.shop'));
+
+      function updateSwitchIndicator(activeBtn, animate = true) {
+        if (!activeBtn || !switchIndicator) return;
+        if (!animate) {
+          switchIndicator.classList.add('no-transition');
+        } else {
+          switchIndicator.classList.remove('no-transition');
+        }
+
+        const offsetLeft = activeBtn.offsetLeft;
+        const width = activeBtn.offsetWidth;
+
+        switchIndicator.style.transform = `translateX(${offsetLeft}px)`;
+        switchIndicator.style.width = `${width}px`;
+
+        if (!animate) {
+          /* Force reflow so subsequent moves transition smoothly */
+          void switchIndicator.offsetWidth;
+          switchIndicator.classList.remove('no-transition');
+        }
+      }
+
+      function syncSwitchStateFromShops() {
+        const shops = allShops();
+        const openCount = shops.filter(s => s.classList.contains('open')).length;
+        const isWithMajority = openCount > shops.length / 2;
+
+        if (isWithMajority) {
+          swWith.classList.add('active');
+          swWith.setAttribute('aria-pressed', 'true');
+          swWithout.classList.remove('active');
+          swWithout.setAttribute('aria-pressed', 'false');
+          updateSwitchIndicator(swWith, true);
+        } else {
+          swWithout.classList.add('active');
+          swWithout.setAttribute('aria-pressed', 'true');
+          swWith.classList.remove('active');
+          swWith.setAttribute('aria-pressed', 'false');
+          updateSwitchIndicator(swWithout, true);
+        }
+      }
+
+      function toggleSingleShop(shopEl) {
+        const isOpen = shopEl.classList.toggle('open');
+        shopEl.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
+        syncSwitchStateFromShops();
+      }
+
+      let cascadeTimeouts = [];
+      function clearCascadeTimeouts() {
+        cascadeTimeouts.forEach(t => clearTimeout(t));
+        cascadeTimeouts = [];
+      }
+
+      function setAllShops(openState) {
+        clearCascadeTimeouts();
+        const shops = allShops();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const delay = prefersReducedMotion ? 0 : 220;
+
+        shops.forEach((shop, index) => {
+          const timeout = setTimeout(() => {
+            if (openState) {
+              shop.classList.add('open');
+              shop.setAttribute('aria-pressed', 'true');
+            } else {
+              shop.classList.remove('open');
+              shop.setAttribute('aria-pressed', 'false');
+            }
+          }, index * delay);
+          cascadeTimeouts.push(timeout);
+        });
+      }
+
+      swWithout.addEventListener('click', () => {
+        if (swWithout.classList.contains('active')) return;
+        swWithout.classList.add('active');
+        swWithout.setAttribute('aria-pressed', 'true');
+        swWith.classList.remove('active');
+        swWith.setAttribute('aria-pressed', 'false');
+        updateSwitchIndicator(swWithout, true);
+        setAllShops(false);
+      });
+
+      swWith.addEventListener('click', () => {
+        if (swWith.classList.contains('active')) return;
+        swWith.classList.add('active');
+        swWith.setAttribute('aria-pressed', 'true');
+        swWithout.classList.remove('active');
+        swWithout.setAttribute('aria-pressed', 'false');
+        updateSwitchIndicator(swWith, true);
+        setAllShops(true);
+      });
+
+      /* Initial switch position (without transition) */
+      updateSwitchIndicator(swWithout, false);
+
+      /* After fonts load & window resize, re-measure indicator */
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          const activeBtn = swWith.classList.contains('active') ? swWith : swWithout;
+          updateSwitchIndicator(activeBtn, false);
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        const activeBtn = swWith.classList.contains('active') ? swWith : swWithout;
+        updateSwitchIndicator(activeBtn, false);
+      });
+
+      /* 6. INTRO ANIMATION */
+      /* At load: shops are closed, after 900ms switch moves to "With Corner Studio" and all shutters roll up */
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          swWith.classList.add('active');
+          swWith.setAttribute('aria-pressed', 'true');
+          swWithout.classList.remove('active');
+          swWithout.setAttribute('aria-pressed', 'false');
+          updateSwitchIndicator(swWith, true);
+          setAllShops(true);
+        }, 900);
+      });
+
+      /* 7. SCROLL REVEALS */
+      const rvElements = document.querySelectorAll('.rv');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        rvElements.forEach(el => observer.observe(el));
+      } else {
+        rvElements.forEach(el => el.classList.add('in'));
+      }
+
+      /* 8. CONTACT FORM & LEAD DESK API INTEGRATION */
+      const contactForm = document.getElementById('contact-form');
+      const contactSuccessCard = document.getElementById('contact-success-card');
+      const btnSubmitEnquiry = document.getElementById('btn-submit-enquiry');
+      const successDesc = document.getElementById('success-desc');
+      const successWaLink = document.getElementById('success-wa-link');
+      const btnSendAnother = document.getElementById('btn-send-another');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', async e => {
+          e.preventDefault();
+
+          const nameInput = document.getElementById('f-name');
+          const bizInput = document.getElementById('f-business');
+          const contactInput = document.getElementById('f-contact');
+          const msgInput = document.getElementById('f-message');
+
+          const name = (nameInput?.value || '').trim();
+          const business = (bizInput?.value || '').trim();
+          const contact = (contactInput?.value || '').trim();
+          const message = (msgInput?.value || '').trim();
+
+          if (!name || !business || !contact) {
+            if (!name && nameInput) nameInput.focus();
+            else if (!business && bizInput) bizInput.focus();
+            else if (!contact && contactInput) contactInput.focus();
+            return;
+          }
+
+          if (btnSubmitEnquiry) {
+            btnSubmitEnquiry.textContent = 'Saving enquiry...';
+            btnSubmitEnquiry.disabled = true;
+          }
+
+          try {
+            const res = await fetch('/api/enquiries', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, business, contact, message })
+            });
+
+            if (!res.ok) {
+              throw new Error('Server returned ' + res.status);
+            }
+
+            const data = await res.json();
+
+            // Show success confirmation card
+            contactForm.style.display = 'none';
+            if (contactSuccessCard) {
+              contactSuccessCard.style.display = 'flex';
+              if (successDesc) {
+                successDesc.textContent = `Thank you, ${name}! Your enquiry for ${business} has been recorded and saved to our Lead Desk. We’ll reply within a day with ideas, not a sales pitch.`;
+              }
+              if (successWaLink) {
+                const waText = `Hi ${A.name}, I just submitted an enquiry for ${business} (${name}, ${contact}). Message: ${message || 'Looking for web design'}`;
+                successWaLink.href = `https://wa.me/${A.wa}?text=${encodeURIComponent(waText)}`;
+              }
+            }
+
+            // Reset form
+            contactForm.reset();
+
+            // Refresh leads in background if desk is unlocked
+            if (adminPasscode) {
+              fetchLeads();
+            }
+          } catch (err) {
+            console.warn('API save failed, falling back to mail draft:', err);
+            // Fallback to mailto draft
+            const subject = `Website enquiry — ${business}`;
+            const bodyLines = [
+              `Name: ${name}`,
+              `Business: ${business}`,
+              `Contact: ${contact}`,
+              ``,
+              `Message:`,
+              message || '(No extra message provided)'
+            ];
+            window.location.href = `mailto:${encodeURIComponent(A.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+          } finally {
+            if (btnSubmitEnquiry) {
+              btnSubmitEnquiry.textContent = 'Send enquiry →';
+              btnSubmitEnquiry.disabled = false;
+            }
+          }
+        });
+      }
+
+      if (btnSendAnother && contactForm && contactSuccessCard) {
+        btnSendAnother.addEventListener('click', () => {
+          contactSuccessCard.style.display = 'none';
+          contactForm.style.display = 'flex';
+        });
+      }
+
+      /* ===== ADMIN LEAD DESK DRAWER CONTROLLER ===== */
+      let adminPasscode = '';
+      let adminLeads = [];
+      let currentFilter = 'all';
+
+      const drawerOverlay = document.getElementById('admin-drawer-overlay');
+      const drawerBackdrop = document.getElementById('drawer-backdrop');
+      const drawerCloseBtn = document.getElementById('drawer-close-btn');
+      const btnOpenInbox = document.getElementById('btn-open-inbox');
+      const footerInboxLink = document.getElementById('footer-inbox-link');
+      const drawerLockView = document.getElementById('drawer-lock-view');
+      const drawerDashView = document.getElementById('drawer-dash-view');
+      const lockForm = document.getElementById('lock-form');
+      const adminPassInput = document.getElementById('admin-pass-input');
+      const lockError = document.getElementById('lock-error');
+      const leadsList = document.getElementById('leads-list');
+      const statTotal = document.getElementById('stat-total');
+      const statNew = document.getElementById('stat-new');
+      const statContacted = document.getElementById('stat-contacted');
+      const btnRefreshLeads = document.getElementById('btn-refresh-leads');
+      const btnLockDash = document.getElementById('btn-lock-dash');
+      const navLeadBadge = document.getElementById('nav-lead-badge');
+      const filterBtns = document.querySelectorAll('.dash-filter-btn');
+
+      function openLeadDesk() {
+        if (!drawerOverlay) return;
+        drawerOverlay.classList.add('open');
+        drawerOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        if (adminPasscode) {
+          showDashboardView();
+          fetchLeads();
+        } else {
+          showLockView();
+        }
+      }
+
+      function closeLeadDesk() {
+        if (!drawerOverlay) return;
+        drawerOverlay.classList.remove('open');
+        drawerOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function showLockView() {
+        if (drawerLockView) drawerLockView.style.display = 'flex';
+        if (drawerDashView) drawerDashView.style.display = 'none';
+        if (lockError) lockError.style.display = 'none';
+        if (adminPassInput) {
+          adminPassInput.value = '';
+          setTimeout(() => adminPassInput.focus(), 100);
+        }
+      }
+
+      function showDashboardView() {
+        if (drawerLockView) drawerLockView.style.display = 'none';
+        if (drawerDashView) drawerDashView.style.display = 'flex';
+      }
+
+      function lockLeadDesk() {
+        adminPasscode = '';
+        adminLeads = [];
+        showLockView();
+        if (navLeadBadge) navLeadBadge.classList.remove('has-new');
+      }
+
+      async function verifyAndUnlock(enteredKey) {
+        if (!enteredKey) return;
+        try {
+          const res = await fetch('/api/admin/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key: enteredKey })
+          });
+          const data = await res.json();
+          if (data.valid) {
+            adminPasscode = enteredKey;
+            showDashboardView();
+            fetchLeads();
+          } else {
+            if (lockError) {
+              lockError.textContent = 'Incorrect passcode. Please try again.';
+              lockError.style.display = 'block';
+            }
+          }
+        } catch (err) {
+          if (lockError) {
+            lockError.textContent = 'Connection error. Please try again.';
+            lockError.style.display = 'block';
+          }
+        }
+      }
+
+      async function fetchLeads() {
+        if (!adminPasscode) return;
+        if (leadsList) {
+          leadsList.innerHTML = '<div class="empty-leads">Loading enquiries...</div>';
+        }
+
+        try {
+          const res = await fetch(`/api/enquiries?key=${encodeURIComponent(adminPasscode)}`);
+          if (!res.ok) {
+            if (res.status === 401) {
+              lockLeadDesk();
+              return;
+            }
+            throw new Error('Failed to load enquiries');
+          }
+          const data = await res.json();
+          adminLeads = data.enquiries || [];
+          updateStatsAndBadge();
+          renderLeadsList();
+        } catch (err) {
+          if (leadsList) {
+            leadsList.innerHTML = `<div class="empty-leads" style="color:#E4472B;">Failed to load leads: ${err.message}</div>`;
+          }
+        }
+      }
+
+      function formatTimeAgo(isoString) {
+        try {
+          const date = new Date(isoString);
+          const now = new Date();
+          const diffMs = now.getTime() - date.getTime();
+          const diffMins = Math.floor(diffMs / 60000);
+          const diffHours = Math.floor(diffMins / 60);
+          const diffDays = Math.floor(diffHours / 24);
+
+          if (diffMins < 2) return 'Just now';
+          if (diffMins < 60) return `${diffMins}m ago`;
+          if (diffHours < 24) return `${diffHours}h ago`;
+          if (diffDays === 1) return 'Yesterday';
+          if (diffDays < 7) return `${diffDays}d ago`;
+          return date.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+        } catch (e) {
+          return 'Recently';
+        }
+      }
+
+      function updateStatsAndBadge() {
+        const total = adminLeads.length;
+        const newCount = adminLeads.filter(l => l.status === 'new').length;
+        const contactedCount = adminLeads.filter(l => l.status === 'contacted').length;
+
+        if (statTotal) statTotal.textContent = total;
+        if (statNew) statNew.textContent = newCount;
+        if (statContacted) statContacted.textContent = contactedCount;
+
+        if (navLeadBadge) {
+          if (newCount > 0) {
+            navLeadBadge.textContent = `${newCount} new`;
+            navLeadBadge.classList.add('has-new');
+          } else if (total > 0) {
+            navLeadBadge.textContent = `${total}`;
+            navLeadBadge.classList.add('has-new');
+          } else {
+            navLeadBadge.classList.remove('has-new');
+          }
+        }
+      }
+
+      function renderLeadsList() {
+        if (!leadsList) return;
+
+        let filtered = adminLeads;
+        if (currentFilter !== 'all') {
+          filtered = adminLeads.filter(l => l.status === currentFilter);
+        }
+
+        if (filtered.length === 0) {
+          leadsList.innerHTML = `
+            <div class="empty-leads">
+              <p style="font-size: 16px; margin-bottom: 4px;">No ${currentFilter === 'all' ? '' : currentFilter} enquiries yet.</p>
+              <p style="font-size: 13px; opacity: 0.7;">New enquiries submitted from the contact form appear here immediately.</p>
+            </div>
+          `;
+          return;
+        }
+
+        leadsList.innerHTML = filtered
+          .map(lead => {
+            const isEmail = lead.contact.includes('@');
+            const cleanPhone = lead.contact.replace(/[^0-9+]/g, '');
+            const waUrl = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(`Hi ${lead.name}, thank you for reaching out to ${A.name} regarding your website for ${lead.business}!`)}`;
+
+            return `
+            <div class="lead-card" data-id="${lead.id}">
+              <div class="lead-card-header">
+                <div>
+                  <h4 class="lead-biz">${escapeHtml(lead.business)}</h4>
+                  <div class="lead-name">${escapeHtml(lead.name)}</div>
+                </div>
+                <span class="lead-badge status-${lead.status}">${lead.status}</span>
+              </div>
+
+              ${lead.message ? `<div class="lead-msg">“${escapeHtml(lead.message)}”</div>` : ''}
+
+              <div class="lead-contacts">
+                <span style="color: var(--muted); font-size: 12px;">Contact:</span>
+                ${
+                  isEmail
+                    ? `<a href="mailto:${encodeURIComponent(lead.contact)}" class="lead-link">✉ ${escapeHtml(lead.contact)}</a>`
+                    : `<a href="tel:${encodeURIComponent(cleanPhone)}" class="lead-link">📞 ${escapeHtml(lead.contact)}</a>`
+                }
+                ${
+                  !isEmail && cleanPhone.length >= 7
+                    ? `<a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="lead-link" style="color: #25D366;">💬 WhatsApp</a>`
+                    : ''
+                }
+              </div>
+
+              <div class="lead-actions-row">
+                <span class="lead-date">${formatTimeAgo(lead.createdAt)}</span>
+                <div class="lead-status-btns">
+                  ${
+                    lead.status !== 'contacted'
+                      ? `<button class="lead-btn-mini btn-mark-contacted" data-id="${lead.id}" type="button">Mark Contacted</button>`
+                      : `<button class="lead-btn-mini btn-mark-new" data-id="${lead.id}" type="button">Mark New</button>`
+                  }
+                  ${
+                    lead.status !== 'archived'
+                      ? `<button class="lead-btn-mini btn-mark-archived" data-id="${lead.id}" type="button">Archive</button>`
+                      : ''
+                  }
+                  <button class="lead-btn-mini lead-btn-delete" data-id="${lead.id}" type="button" title="Delete enquiry">✕</button>
+                </div>
+              </div>
+            </div>
+          `;
+          })
+          .join('');
+
+        // Wire event handlers on card actions
+        leadsList.querySelectorAll('.btn-mark-contacted').forEach(btn => {
+          btn.addEventListener('click', () => updateLeadStatus(btn.dataset.id, 'contacted'));
+        });
+        leadsList.querySelectorAll('.btn-mark-new').forEach(btn => {
+          btn.addEventListener('click', () => updateLeadStatus(btn.dataset.id, 'new'));
+        });
+        leadsList.querySelectorAll('.btn-mark-archived').forEach(btn => {
+          btn.addEventListener('click', () => updateLeadStatus(btn.dataset.id, 'archived'));
+        });
+        leadsList.querySelectorAll('.lead-btn-delete').forEach(btn => {
+          btn.addEventListener('click', () => deleteLead(btn.dataset.id));
+        });
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      async function updateLeadStatus(id, newStatus) {
+        try {
+          const res = await fetch(`/api/enquiries/${id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-admin-key': adminPasscode
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+          if (res.ok) {
+            const idx = adminLeads.findIndex(l => l.id === id);
+            if (idx !== -1) {
+              adminLeads[idx].status = newStatus;
+              updateStatsAndBadge();
+              renderLeadsList();
+            }
+          }
+        } catch (err) {
+          console.error('Failed to update lead status:', err);
+        }
+      }
+
+      async function deleteLead(id) {
+        try {
+          const res = await fetch(`/api/enquiries/${id}`, {
+            method: 'DELETE',
+            headers: { 'x-admin-key': adminPasscode }
+          });
+          if (res.ok) {
+            adminLeads = adminLeads.filter(l => l.id !== id);
+            updateStatsAndBadge();
+            renderLeadsList();
+          }
+        } catch (err) {
+          console.error('Failed to delete lead:', err);
+        }
+      }
+
+
+      // Lock Form submission
+      if (lockForm) {
+        lockForm.addEventListener('submit', e => {
+          e.preventDefault();
+          const val = (adminPassInput?.value || '').trim();
+          if (val) {
+            verifyAndUnlock(val);
+          }
+        });
+      }
+
+      // Filter tabs
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter || 'all';
+          renderLeadsList();
+        });
+      });
+
+      // Actions
+      if (btnRefreshLeads) btnRefreshLeads.addEventListener('click', fetchLeads);
+      if (btnLockDash) btnLockDash.addEventListener('click', lockLeadDesk);
+      if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeLeadDesk);
+      if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeLeadDesk);
+
+      // Secret logo click trigger: 3 clicks within 1.2s opens the Lead Desk
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logos = document.querySelectorAll('.logo');
+
+      logos.forEach(logo => {
+        logo.addEventListener('click', e => {
+          logoClickCount++;
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 3) {
+            e.preventDefault();
+            logoClickCount = 0;
+            openLeadDesk();
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+          }, 1200);
+        });
+      });
+
+      // Secret URL hash trigger: e.g. visit /#admin
+      function checkAdminHash() {
+        if (window.location.hash === '#admin') {
+          openLeadDesk();
+        }
+      }
+      window.addEventListener('hashchange', checkAdminHash);
+      checkAdminHash();
+
+      // Keyboard shortcut (Alt + L or Ctrl + Shift + L)
+      document.addEventListener('keydown', e => {
+        if (
+          (e.altKey && (e.key === 'l' || e.key === 'L')) ||
+          (e.ctrlKey && e.shiftKey && (e.key === 'l' || e.key === 'L')) ||
+          (e.metaKey && e.shiftKey && (e.key === 'l' || e.key === 'L'))
+        ) {
+          e.preventDefault();
+          openLeadDesk();
+        } else if (e.key === 'Escape' && drawerOverlay?.classList.contains('open')) {
+          closeLeadDesk();
+        }
+      });
+
+      /* 9. THEME TOGGLE */
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+
+      function updateThemeIcon(isDark) {
+        if (!themeIcon) return;
+        if (isDark) {
+          // Render sun icon
+          themeIcon.innerHTML = `
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          `;
+        } else {
+          // Render moon icon
+          themeIcon.innerHTML = `
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          `;
+        }
+      }
+
+      // Default to Day theme
+      updateThemeIcon(false);
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          const root = document.documentElement;
+          const activeTheme = root.getAttribute('data-theme');
+          const isCurrentlyDark = activeTheme === 'dark';
+
+          if (isCurrentlyDark) {
+            root.setAttribute('data-theme', 'light');
+            updateThemeIcon(false);
+          } else {
+            root.setAttribute('data-theme', 'dark');
+            updateThemeIcon(true);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
