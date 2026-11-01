@@ -1885,6 +1885,7 @@
               <h3 class="success-title">Enquiry received</h3>
               <p id="success-desc" class="success-desc">Thank you! Your enquiry has been received and saved to our studio Lead Desk. We’ll reply within a day with ideas, not a sales pitch.</p>
               <div class="success-actions">
+                <a id="success-email-link" href="#" target="_blank" rel="noopener noreferrer" class="btn" style="background: var(--cobalt);">Open in Gmail / Email →</a>
                 <a id="success-wa-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa-copy">Open in WhatsApp →</a>
                 <button type="button" id="btn-send-another" class="btn ghost btn-another">Send another enquiry</button>
               </div>
@@ -1968,7 +1969,7 @@
       /* Agency configuration: update these details with your studio contact and project turnaround */
       const A = {
         name: 'Corner Studio',
-        email: 'hello@yourstudio.com',
+        email: 'himanshu455623@gmail.com',
         wa: '0000000000',
         cur: '₹',
         days: 7
@@ -2328,6 +2329,7 @@
       const contactSuccessCard = document.getElementById('contact-success-card');
       const btnSubmitEnquiry = document.getElementById('btn-submit-enquiry');
       const successDesc = document.getElementById('success-desc');
+      const successEmailLink = document.getElementById('success-email-link');
       const successWaLink = document.getElementById('success-wa-link');
       const btnSendAnother = document.getElementById('btn-send-another');
 
@@ -2357,6 +2359,19 @@
             btnSubmitEnquiry.disabled = true;
           }
 
+          const subject = `Website enquiry — ${business}`;
+          const bodyLines = [
+            `Name: ${name}`,
+            `Business: ${business}`,
+            `Contact: ${contact}`,
+            ``,
+            `Message:`,
+            message || '(No extra message provided)'
+          ];
+          const bodyText = bodyLines.join('\n');
+          const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(A.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+          const mailtoUrl = `mailto:${encodeURIComponent(A.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+
           try {
             const res = await fetch('/api/enquiries', {
               method: 'POST',
@@ -2377,6 +2392,9 @@
               if (successDesc) {
                 successDesc.textContent = `Thank you, ${name}! Your enquiry for ${business} has been recorded and saved to our Lead Desk. We’ll reply within a day with ideas, not a sales pitch.`;
               }
+              if (successEmailLink) {
+                successEmailLink.href = gmailUrl;
+              }
               if (successWaLink) {
                 const waText = `Hi ${A.name}, I just submitted an enquiry for ${business} (${name}, ${contact}). Message: ${message || 'Looking for web design'}`;
                 successWaLink.href = `https://wa.me/${A.wa}?text=${encodeURIComponent(waText)}`;
@@ -2391,18 +2409,25 @@
               fetchLeads();
             }
           } catch (err) {
-            console.warn('API save failed, falling back to mail draft:', err);
-            // Fallback to mailto draft
-            const subject = `Website enquiry — ${business}`;
-            const bodyLines = [
-              `Name: ${name}`,
-              `Business: ${business}`,
-              `Contact: ${contact}`,
-              ``,
-              `Message:`,
-              message || '(No extra message provided)'
-            ];
-            window.location.href = `mailto:${encodeURIComponent(A.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+            console.warn('API save unavailable, opening email to ' + A.email, err);
+            contactForm.style.display = 'none';
+            if (contactSuccessCard) {
+              contactSuccessCard.style.display = 'flex';
+              if (successDesc) {
+                successDesc.textContent = `Thank you, ${name}! Your enquiry for ${business} is ready to send to ${A.email}. If your email app did not open automatically, tap below:`;
+              }
+              if (successEmailLink) {
+                successEmailLink.href = gmailUrl;
+              }
+              if (successWaLink) {
+                const waText = `Hi ${A.name}, I just submitted an enquiry for ${business} (${name}, ${contact}). Message: ${message || 'Looking for web design'}`;
+                successWaLink.href = `https://wa.me/${A.wa}?text=${encodeURIComponent(waText)}`;
+              }
+            }
+            contactForm.reset();
+
+            // Open mail draft to himanshu455623@gmail.com
+            window.location.href = mailtoUrl;
           } finally {
             if (btnSubmitEnquiry) {
               btnSubmitEnquiry.textContent = 'Send enquiry →';
